@@ -10,7 +10,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "scaffold [COMMAND]",
 	Short: "Scaffold is template based init tool",
-	Long:  "A simple and flexible scaffold tool to initalize projects from templates",
+	Long:  "A simple and flexible scaffold tool to initialize projects from templates",
 }
 
 func Initialize() {
