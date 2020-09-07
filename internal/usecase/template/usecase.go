@@ -1,9 +1,13 @@
 package template
 
-import "github.com/maykonlf/scaffold/internal/domain/entities"
+import (
+	"github.com/maykonlf/scaffold/internal/domain/entities"
+)
 
 func NewTemplaceUseCase(configService ConfigService) UseCase {
-	return &useCase{}
+	return &useCase{
+		configService: configService,
+	}
 }
 
 type UseCase interface {

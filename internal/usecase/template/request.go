@@ -14,6 +14,6 @@ type AddRequest struct {
 func (r AddRequest) Validate() error {
 	return validation.ValidateStruct(&r,
 		validation.Field(&r.Name, validation.Required),
-		validation.Field(&r.Source, validation.Required, validation.Match(regexp.MustCompile("^(https://|git@).{6,}(\\.git)?"))),
+		validation.Field(&r.Source, validation.Required, validation.Match(regexp.MustCompile(`^(https://|git@).{6,}(\\.git)?`))),
 	)
 }

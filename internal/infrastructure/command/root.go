@@ -7,29 +7,29 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewRootCommand(templateCommand TemplateCommandI) RootCommandI {
+func NewRootCommand(templateCommand TemplateCommand) RootCommand {
 	rootCmd := &cobra.Command{
 		Use:   "scaffold [COMMAND]",
 		Short: "Scaffold is template based init tool",
 		Long:  "A simple and flexible scaffold tool to initialize projects from templates",
 	}
 
-	return &RootCommand{
+	return &rootCommand{
 		cmd:             rootCmd,
 		templateCommand: templateCommand,
 	}
 }
 
-type RootCommandI interface {
+type RootCommand interface {
 	Execute()
 }
 
-type RootCommand struct {
+type rootCommand struct {
 	cmd             *cobra.Command
-	templateCommand TemplateCommandI
+	templateCommand TemplateCommand
 }
 
-func (c *RootCommand) Execute() {
+func (c *rootCommand) Execute() {
 	c.init()
 
 	if err := c.cmd.Execute(); err != nil {
@@ -38,7 +38,7 @@ func (c *RootCommand) Execute() {
 	}
 }
 
-func (c *RootCommand) init() {
+func (c *rootCommand) init() {
 	c.cmd.AddCommand(c.templateCommand.List())
 	c.cmd.AddCommand(c.templateCommand.Add())
 }

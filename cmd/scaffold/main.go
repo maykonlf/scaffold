@@ -1,16 +1,11 @@
 package main
 
 import (
-	"github.com/maykonlf/scaffold/internal/command"
-	"github.com/maykonlf/scaffold/internal/usecase"
+	"github.com/maykonlf/scaffold/internal/config"
 )
 
 func main() {
-	templateUseCase, err := usecase.NewTemplaceUseCase()
-	if err != nil {
-		panic(err)
-	}
-
-	rootCmd := command.NewRootCommand(command.NewTemplateCommand(templateUseCase))
+	container := config.NewContainer()
+	rootCmd := container.GetRootCommand()
 	rootCmd.Execute()
 }
