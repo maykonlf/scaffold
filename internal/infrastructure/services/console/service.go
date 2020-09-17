@@ -2,29 +2,30 @@ package console
 
 import (
 	"fmt"
-	"os"
 	"strings"
-	"text/tabwriter"
 )
 
 type Service interface {
-	WriteTable(rows [][]string)
+	WriteTable(rows [][]string) error
 }
 
-func NewService() Service {
+func NewService(writer Writer) Service {
 	return &service{
-		writer: tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', tabwriter.AlignRight),
+		writer: writer,
 	}
 }
 
 type service struct {
-	writer *tabwriter.Writer
+	writer Writer
 }
 
-func (s *service) WriteTable(rows [][]string) {
+func (s *service) WriteTable(rows [][]string) error {
 	for _, row := range rows {
-		fmt.Fprintln(s.writer, strings.Join(row, "\t"))
+		_, err := fmt.Fprintln(s.writer, strings.Join(row, "\t"))
+		if err != nil {
+			return err
+		}
 	}
 
-	s.writer.Flush()
+	return s.writer.Flush()
 }

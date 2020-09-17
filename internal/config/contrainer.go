@@ -2,6 +2,8 @@ package config
 
 import (
 	"fmt"
+	"os"
+	"text/tabwriter"
 
 	"github.com/maykonlf/scaffold/internal/infrastructure/command"
 	"github.com/maykonlf/scaffold/internal/infrastructure/services/configs"
@@ -51,7 +53,8 @@ func (c *container) getTemplateCommand() command.TemplateCommand {
 
 func (c *container) getConsoleService() console.Service {
 	if c.consoleService == nil {
-		c.consoleService = console.NewService()
+		writer := tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', tabwriter.AlignRight)
+		c.consoleService = console.NewService(writer)
 	}
 
 	return c.consoleService
