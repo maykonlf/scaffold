@@ -6,9 +6,10 @@ lint:
 	@golangci-lint run ./...
 
 test:
-	@go test -coverpkg=./internal/... -coverprofile=cover.out ./internal/...
+	@go test -cover ./...
 
-cover: test
+cover:
+	@go test -coverpkg=./internal/... -coverprofile=cover.out ./internal/... > /dev/null
 	@go tool cover -func cover.out
 
 build:
