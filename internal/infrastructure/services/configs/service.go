@@ -86,10 +86,6 @@ func (s *service) createConfigFileIfNotExists() error {
 }
 
 func (s *service) saveConfig(config *Config) error {
-	data, err := yaml.Marshal(config)
-	if err != nil {
-		return err
-	}
-
+	data, _ := yaml.Marshal(config)
 	return ioutil.WriteFile(s.configFilePath, data, 0600)
 }
