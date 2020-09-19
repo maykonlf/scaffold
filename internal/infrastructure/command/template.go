@@ -51,13 +51,15 @@ func (c *templateCommand) listTemplates(cmd *cobra.Command, args []string) error
 		return err
 	}
 
-	c.consoleService.WriteTable(c.parseTemplatesToRows(templates))
-	return nil
+	return c.consoleService.WriteTable(c.parseTemplatesToRows(templates))
 }
 
 func (c *templateCommand) parseTemplatesToRows(templates []*entities.Template) [][]string {
-	rows := make([][]string, len(templates)+1)
+	if len(templates) == 0 {
+		return [][]string{}
+	}
 
+	rows := make([][]string, len(templates)+1)
 	rows[0] = []string{"name", "source"}
 	for i := range templates {
 		rows[i+1] = []string{
